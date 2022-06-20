@@ -29,7 +29,7 @@ for (var i = 0; i < enemyName.length; i++) {
         console.log(whoWins(isThereKryptonite, enemyName[i]))
 }
 
-function HowAttractedIsLoisLaneToMe () {
+function howAttractedIsLoisLaneToMe () {
     return Math.floor((Math.random()*10)+1)
 }
 // 1 is not at all attracted, 10 is "super" attracted...
