@@ -20,7 +20,7 @@ const wheel = document.addEventListener("wheel", function() {
     square.style.backgroundColor = "orange"
 })
 
-const keyCommands = document.addEventListener("keydown", function () {
+const keyCommands = document.addEventListener("keydown", function (event) {
     if (event.key === "b") {
         (square.style.backgroundColor = "blue")
     } else if (event.key === "r") {
