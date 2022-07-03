@@ -15,30 +15,34 @@ subtitleName.style.color = "green"
 
 //Bronze//
 
-const messageLeft = document.getElementsByClassName("message left")
-const messageRight = document.getElementsByClassName("message right")
-messageLeft[0].textContent = "Good day sir! What is your favorite color?"
-messageRight[0].textContent = "My favorite color is green"
-messageLeft[1].textContent = "Awesome! thats may favorite color as well, though i really like the color blue"
-messageRight[1].textContent = "blue is neat, but I still prefer the color green"
+
+
+const messages = document.getElementsByClassName("message");
+messages[0].textContent = "Good day sir! What is your favorite color?"
+messages[1].textContent ="My favorite color is green"
+messages[2].textContent =  "Awesome! thats may favorite color as well, though i really like the color blue"
+messages[3].textContent =  "blue is neat, but I still prefer the color green"
+
 
 const clearButton = document.getElementById("clear-button")
-
 clearButton.addEventListener("click", function() {
     messageLeft[0].textContent = ""
     messageLeft[1].textContent = ""
     messageRight[0].textContent = ""
     messageRight[1].textContent = ""
-
 })
 
 //Silver//
 
+const selectTheme = document.getElementById("theme-drop-down")
+const themeOne = document.querySelector("option[theme-one]") 
 
-
-
-
-
+selectTheme.addEventListener("change", function() {
+    if (themeOne) {
+        messages.style.color = "blue"
+    } else messages.style.color = "red"
+})
+   
 
 //Gold//
 
