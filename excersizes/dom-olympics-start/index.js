@@ -26,23 +26,47 @@ messages[3].textContent =  "blue is neat, but I still prefer the color green"
 
 const clearButton = document.getElementById("clear-button")
 clearButton.addEventListener("click", function() {
-    messageLeft[0].textContent = ""
-    messageLeft[1].textContent = ""
-    messageRight[0].textContent = ""
-    messageRight[1].textContent = ""
+    messages[0].textContent = ""
+    messages[1].textContent = ""
+    messages[2].textContent = ""
+    messages[3].textContent = ""
 })
 
 //Silver//
 
-const selectTheme = document.getElementById("theme-drop-down")
-const themeOne = document.querySelector("option[theme-one]") 
+for (var i = 0; i < messages.length; i++){
+messages[i].classList.toggle("theme-two")
+}
 
-selectTheme.addEventListener("change", function() {
-    if (themeOne) {
-        messages.style.color = "blue"
-    } else messages.style.color = "red"
-})
-   
+const selectTheme = document.getElementById("theme-drop-down")
+const themeOne = document.getElementsByClassName("theme-one")
+const themeTwo = document.getElementsByClassName("theme-two")
+
+selectTheme.addEventListener("change", function(e) {
+    if (themeTwo) {
+       for (i = 0; i < messages.length; i++)
+        messages[i].style.color = "red"
+        document.body.style.backgroundColor = "grey"
+    } 
+ })
 
 //Gold//
+const main = document.getElementsByClassName("messages")
+
+const input = document.getElementById("input")
+const sendButton = document.getElementsByTagName("button")
+sendButton[1].type = "button"
+
+function createNewMessage() {
+    const newMessage = document.createElement("div")
+    main[0].appendChild(newMessage)
+    newMessage.textContent = input.value
+}
+
+sendButton[1].addEventListener("click", function() {
+    console.log("poop")
+    createNewMessage()
+})
+
+
 
