@@ -1,42 +1,112 @@
-const form = document.addItem
-const list = document.getElementById("list")
+const form = document.addItem //
 
+function createItem() {
+    const newItem = document.createElement("li")
+    const div = document.createElement("div")
 
-function createItem (){
-    const item = document.createElement("li")
-    document.getElementById("list").append(item)
-    item.innerHTML += "<div id ='newItem'>" + form.title.value + "</div>" + "<button id='editButtont'>edit</button>" + "<button id='deleteButton' onclick='deleteItem()' >X</button>"
-}
+    div.textContent = form.title.value
 
-/*function createItem2 () {
-    const newItem = document.createElement("div")
-        document.getElementById("list").append(newItem)
-}
-
-function createEdit () {
     const editButton = document.createElement("button")
-    editButton.innerHTML = "<button>'edit'</button>"
-    document.getElementById("list").append(editButton)
+    const deleteButton = document.createElement("button")
+
+//buttons content
+    editButton.textContent = "EDIT"
+    deleteButton.textContent = "X"
+
+
+// appending items
+    document.getElementById("list").append(newItem)
+    newItem.appendChild(div)
+    newItem.appendChild(deleteButton)
+    newItem.appendChild(editButton)
+    
+
+// delete button grouping
+    deleteButton.addEventListener("click", function() {
+        this.parentNode.parentNode.removeChild(this.parentNode)
+        this.parentNode.removeChild(this)
+    })
+
+ //edit button grouping
+    editButton.addEventListener("click", function() {
+        const inputAdjust = document.createElement("input")
+        newItem.prepend(inputAdjust)
+        inputAdjust.placeholder = div.textContent
+        this.remove(this)
+
+//adust submit button - edit button swap
+        const adjustSubmitButton = document.createElement("button")
+        adjustSubmitButton.textContent = "SAVE"
+        div.appendChild(adjustSubmitButton)
+
+//adjust submit button fire
+        adjustSubmitButton.addEventListener("click", function() {
+            const adjustedValue = inputAdjust.value
+            div.textContent = adjustedValue
+            console.log(adjustedValue)
+            inputAdjust.remove()
+            newItem.appendChild(editButton)
+       })
+        
+
+    })
+    
 }
 
-function createDelete () {
-    const deleteButton = document.createElement("button")
-    deleteButton.innerHTML = "<button>x</button>"
-    document.getElementById("list").append(deleteButton)
-}*/
+//submit button fire
 form.addEventListener("submit", (e) => {
+    
     const input = form.title.value
-        e.preventDefault ()
-        console.log (input)
-        createItem ()
+    e.preventDefault ()
+    console.log (input)
+    createItem ()
         form.title.value = ""
     })
 
-    function deleteItem() {
-    const newListItem = document.getElementById("newItem")
-    item.remove()
-    editButton.remove()
-    deleteButton.remove()
-    }
+    
+
+ // item.innerHTML += "<div id ='newItem'>" + form.title.value + "</div>" + "<button id='editButton'>edit</button>" + "<button id='deleteButton' onclick='deleteItem()' >X</button>"
+
+// function deleteItem() {
+//     const newItem = document.getElementById("newItem")
+//     const editButton = document.getElementById("editButton")
+//     const deleteButton = document.getElementById("deleteButton")
+//     newItem.remove()
+//     editButton.remove()
+//     deleteButton.remove()
+// }
 
     
+// function createItem2 () {
+//     const newItem = document.createElement("div")
+//         document.getElementById("list").append(newItem)
+// }
+
+// function createEdit () {
+//     const editButton = document.createElement("button")
+//     editButton.innerHTML = "<button>'edit'</button>"
+//     document.getElementById("list").append(editButton)
+// }
+
+// function createDelete () {
+//     const deleteButton = document.createElement("button")
+//     deleteButton.innerHTML = "<button>x</button>"
+//     document.getElementById("list").append(deleteButton)
+// }
+
+
+{/* <li>
+<div>Milk</div>
+<button>edit</button>
+<button>X</button>
+</li>
+<li>
+<div>Cheerios</div>
+<button>edit</button>
+<button>X</button>
+</li>
+<li>
+<div>2 Goats</div>
+<button>edit</button>
+<button>X</button>
+</li> */}
