@@ -44,23 +44,39 @@ function createItem() {
             const adjustedValue = inputAdjust.value
             div.textContent = adjustedValue
             console.log(adjustedValue)
+            localStorage.setItem("adam", adjustedValue)
             inputAdjust.remove()
             newItem.appendChild(editButton)
        })
-        
-
     })
     
 }
 
+
+// adjustSubmitButton.addEventListener("keydown", function() {
+//                 if(key === 'enter'){
+//             const adjustedValue = inputAdjust.value
+//             div.textContent = adjustedValue
+//             console.log(adjustedValue)
+//             localStorage.setItem("adam", adjustedValue)
+//             inputAdjust.remove()
+//             newItem.appendChild(editButton)
+//        }
+//     })
+
+
+
 //submit button fire
 form.addEventListener("submit", (e) => {
-    
+     e.preventDefault ()
     const input = form.title.value
-    e.preventDefault ()
     console.log (input)
     createItem ()
-        form.title.value = ""
+    // for(var i = 0; i < localStorage.length, i++){
+    //     localStorage[i].setItem("adam", input)
+    // }
+    localStorage.setItem("adam", input)
+    form.title.value = ""
     })
 
     
