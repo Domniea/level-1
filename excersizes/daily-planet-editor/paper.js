@@ -34,7 +34,7 @@ function howAttractedIsLoisLaneToMe () {
 }
 // 1 is not at all attracted, 10 is "super" attracted...
 
-console.log(HowAttractedIsLoisLaneToMe ())
+console.log(howAttractedIsLoisLaneToMe ())
 
 var clarkKent = true
 var superman = false

@@ -11,14 +11,14 @@
 .messages {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    border: 1px solid rgb(255, 255, 255);
     margin: 10px 0px;
     padding: 20px;
 }
 
 #main {
     margin: 30px;
-    border: 1px solid black;
+    border: 1px solid rgb(255, 255, 255);
     padding: 10px;
 }
 
