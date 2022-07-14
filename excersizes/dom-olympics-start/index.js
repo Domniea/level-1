@@ -39,8 +39,8 @@ clearButton.addEventListener("click", function() {
 
 //Silver//
 var selectTheme = document.getElementById("theme-drop-down")
-var themeOne = document.getElementsByClassName("messages")
-var themeTwo = document.getElementsByClassName("messages")
+// var themeOne = document.getElementsByClassName("messages").style.color = 'red'
+// var themeTwo = document.getElementsByClassName("messages")
 for (var i = 0; i < messages.length; i++) {
     messages[i].style.color = "brown"
     document.body.style.backgroundColor = "#00d1ff"
@@ -80,6 +80,7 @@ form.addEventListener("submit", function(event) {
     var input = form.input
     console.log("boobs")
     var reply = document.createElement("div")
+    reply.classList.toggle("theme-one")
     reply.classList.add("theme-one")
     reply.textContent = input.value
     main.append(reply)
@@ -87,6 +88,8 @@ form.addEventListener("submit", function(event) {
     themeChange()
 }
 )
+
+
 
 
 
