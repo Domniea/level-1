@@ -72,9 +72,9 @@ var form = document.forms.form
 
 function themeCheck(reply) {
     if (selectTheme.value === "theme-one") {
-        reply.style.color = "green"
+        reply.style.color = "brown"
     } else {
-    reply.style.color = "orange"
+    reply.style.color = "red"
     }
 }
 
