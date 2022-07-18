@@ -22,7 +22,7 @@ for (var i = 9; i >= 0; i--) {
 
 // 3.
 
-const fruit = ["banana", "orange", "apple", "kiwi"]
+// const fruit = ["banana", "orange", "apple", "kiwi"]
 
 for (var i = 0; i < fruit.length; i++) {
     console.log(fruit[i])
@@ -110,3 +110,62 @@ const peopleArray = [
     occupation: "Entertainer"
   }
 ]
+
+// 1.
+
+for (var i = 0; i <peopleArray.length; i++) {
+    console.log(peopleArray[i].name)
+}
+
+//  2.
+
+let names = []
+let occupations = []
+
+
+for(var i = 0; i < peopleArray.length; i++) {
+        names.push(peopleArray[i].name)
+    }
+
+
+for(var i = 0; i < peopleArray.length; i++) {
+    occupations.push(peopleArray[i].occupation)
+}
+
+console.log(names)
+console.log(occupations)
+
+// 3.
+
+let names = []
+let occupations = []
+
+
+for(var i = 0; i < peopleArray.length; i++) {
+        if (i % 2 === 0) {
+            names.push(peopleArray[i].name)
+        }
+    }
+console.log(names)
+
+for(var i = 0; i < peopleArray.length; i++) {
+    if (i % 2 === 0) {
+    occupations.push(peopleArray[i].occupation)
+    }
+}
+
+console.log(occupations)
+
+// # **Gold Medal - Nesting**
+
+// 1. Create an array that mimics a grid like the following using nested `for` loops:
+// [[0, 0, 0],
+// [0, 0, 0],
+// [0, 0, 0]]
+
+gold1 = [[0 ,0 , 0], [0, 0, 0], [0, 0, 0]]
+
+for(var i = 0; i < gold1.length; i++) {
+    console.log(gold1[i])
+}
+
