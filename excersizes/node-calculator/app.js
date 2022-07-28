@@ -31,7 +31,7 @@ const functions = [
 ]
 
 let num1 = parseInt(readlineSync.question("Please choose the first number "))
-let num2 = parseInt(readlineSync.question("Please choose the second number "))
+let num2 = parseInt(readlineSync.question("Please choose the second number "))2
 operations = ["add", "subtract", "multiply", "divide"]
 let index = readlineSync.keyInSelect(operations, "Please choose an operation ") // enumerating the array for you
 
@@ -43,7 +43,7 @@ if (index === 1) subtract()
 
 if (index === 2) multiply
 
-if (index === 2) divide
+if (index === 3) divide
 // if (1) {
 //   console.log(add(num1, num2))
 // }
