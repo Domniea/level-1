@@ -1,0 +1,70 @@
+body {
+     background-color:azure
+}
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header > div {
+    background-color: whitesmoke;
+    color: rgb(77, 77, 77);
+    border: double rgba(255, 227, 227, 0.924) 5px;
+    height: 200ox;
+    width: 800px;
+    margin: 45px;
+    padding: 20px;
+    font-size: 100px;
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#headerSpan {
+    color: rgb(134, 128, 128);
+}
+#imageBox {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 100px;
+}
+
+#planGrid {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: double rgba(255, 227, 227, 0.924) 5px;
+    background-color: white;
+    padding: 25px;
+}
+
+#planGrid > :nth-child(1) {
+    background-color: whitesmoke;
+    font-size: 100px;
+}
+#planGrid > :nth-child(2) {
+    background-color: whitesmoke;
+    font-size: 25px;
+}
+
+#planGrid > :nth-child(3) {
+    background-color: whitesmoke;
+}
+
+.recipies {
+    display: flex;
+    justify-content: space-between;
+    margin: 100px;
+    background-color: beige;
+    padding: 15px;
+}
+
+h1 {
+ text-align: center;
+ text-decoration: underline;
+ border: double 10px rgb(229, 194, 194);
+}
+
+h3 {
+    text-align: center;
+}
