@@ -84,38 +84,138 @@
 }
 
 
-/* @mobile screen only and(max-width 650px)  */
 #grid3 {
-    display: grid;
-    gap: 5px;
-    grid-template-rows:  repeat( 5, 1fr);
-    font-size: 50px;
-    /* text-align: center; */
+    margin: 25px;
+    padding: 15px;
+    font-size: 25px;
+    width: auto;
 }
 
 #header {
     background-color: red;
     border-radius: 10px;
-    
-    
+    margin: 25px;
+    padding: 15px;
+    font-size: 25px;
 }
+
 #sidebar {
     background-color: blue;
-    
     border-radius: 10px;
+    margin: 25px;
+    padding: 15px;
+    font-size: 25px;
 }
 
 #content {
     background-color: green; 
     border-radius: 10px;
-    height: 150px;
+    margin: 25px;
+    padding: 15px;
+    font-size: 25px;
 }
 #sidebar2 {
     background-color: purple;
     border-radius: 10px;
+    margin: 25px;
+    padding: 15px;
+    font-size: 25px;
 }
 
 #footer {
     background-color: purple;
     border-radius: 10px;
+    padding: 15px;
+    margin: 25px;
+    font-size: 25px;
+    }
+
+@media only screen and (min-width: 650px) {
+#grid3 {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: repeat( 4, 1fr);
+    font-size: 25px;
+}
+
+#header {
+    background-color: red;
+    border-radius: 10px;
+    font-size: 25px;
+    grid-column: 1 / -1;
+
+}
+
+#sidebar {
+    background-color: blue;
+    border-radius: 10px;
+    font-size: 25px;
+    grid-column: 1 / 2;
+}
+
+#content {
+    background-color: green; 
+    border-radius: 10px;
+    font-size: 25px;
+    grid-column: 2 / -1;
+}
+#sidebar2 {
+    background-color: purple;
+    border-radius: 10px;
+    font-size: 25px;
+    grid-column: 1 / -1;
+}
+
+#footer {
+    background-color: purple;
+    border-radius: 10px;
+    font-size: 25px;
+    grid-column: 1 / -1;
+    }
+}
+
+@media only screen and (min-width: 1112px) {
+#grid3 {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 200px 1fr, 200px;
+    grid-template-rows: repeat( 4, 1fr);
+    font-size: 25px;
+}
+
+#header {
+    background-color: red;
+    border-radius: 10px;
+    font-size: 25px;
+    grid-column: 1 / 4;
+
+}
+
+#sidebar {
+    background-color: blue;
+    border-radius: 10px;
+    font-size: 25px;
+    grid-column: 1 / 2;
+}
+
+#content {
+    background-color: green; 
+    border-radius: 10px;
+    font-size: 25px;
+    grid-column: 2 / 3;
+}
+#sidebar2 {
+    background-color: purple;
+    border-radius: 10px;
+    font-size: 25px;
+    grid-column: 3 / 4;
+}
+
+#footer {
+    background-color: purple;
+    border-radius: 10px;
+    font-size: 25px;
+    grid-column: 1 / 4;
+    }
 }

@@ -1,4 +1,4 @@
-const form = document.addItem //
+const form = document.addItem 
 
 function createItem() {
     const newItem = document.createElement("li")
