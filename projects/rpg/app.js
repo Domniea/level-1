@@ -38,8 +38,7 @@ var enemyIsAlive = true
 var gameOn = true
 
 function quit() {
-    console.log(`Goodbye ${hero.name}, thanks for playing`);
-    gameOn === false
+    console.log(`Goodbye ${hero.name}, thanks for playing \n`)
 }
 
 function chooseEnemy() {
@@ -55,6 +54,7 @@ function chooseEnemy() {
         enemy = enemy3
     }
     
+    console.log(`A ${enemy.name} has apeared in your path! \n`)
 }
 
 function enemyAttack() {
@@ -66,13 +66,12 @@ function enemyAttack() {
 
     if (hero.hp <= 0) {
         console.log('')
-        console.log("Youre DEAD BUDDY!!!")
+        console.log("Youre DEAD BUDDY!!! \n")
         return heroIsAlive === false
     }
 
     if (hero.hp > 0) {
-    console.log(`${hero.name} is down to ${hero.hp}HP`)
-    console.log("")
+    console.log(`${hero.name} is down to ${hero.hp}HP \n`)
     }
 }
 
@@ -83,13 +82,11 @@ function heroAtack() {
         enemy.hp = newHp
 
         if (enemy.hp >= 0) {
-            console.log(`enemy is down to ${enemy.hp}HP`)
-            console.log("")
+            console.log(`enemy is down to ${enemy.hp}HP \n`)
             
         }
         else if (enemy.hp < 0) {
-            console.log(`${hero.name} vanquished the enemy`)
-            console.log("")
+            console.log(`${hero.name} vanquished the enemy \n`)
             enemy.hp = 0
             }
     }
@@ -104,8 +101,7 @@ function potion() {
         hero.hp = 100
     }
 
-    console.log(`${hero.name} now has ${hero.hp}HP`)
-    console.log("")
+    console.log(`${hero.name} now has ${hero.hp}HP \n`)
     hero.inventory.pop(`potion`)
      
 }
@@ -119,8 +115,7 @@ function run() {
         return true;
     }
     else {
-        console.log(`The enemy blocked ${hero.name}'s path and you were unable to run away.`)
-        console.log("")
+        console.log(`The enemy blocked ${hero.name}'s path and you were unable to run away. \n`)
         return false;
     }
 }
@@ -128,8 +123,7 @@ function run() {
 function expGen(){
     let newExp = Math.floor(Math.random() * 100)
     hero.exp = newExp
-    console.log(`${hero.name} gained ${hero.exp}exp`)
-    console.log('')
+    console.log(`${hero.name} gained ${hero.exp}exp \n`)
 }
 
 function resetEnemy() {
@@ -162,9 +156,8 @@ function enemyFight() {
                 console.log(` -- ${hero.name} used a potion. `)
                 potion()
             }
-            else{
-                console.log(` -- ${hero.name}  is out of potions`)
-                console.log('')
+            else {
+                console.log(` -- ${hero.name}  is out of potions \n`)
             }
         
             }
@@ -184,50 +177,60 @@ function enemyFight() {
     
     }
 }
-           
-
-function nextMove() {
-    readline.keyIn('make a move.', {limit: 'wq'})
-    console.log('')
-}
 
 
+// -------------------------------------------------- GAME ---------------------------------------------------//
 while (hero.hp > 0) {
-    hero.name = readline.question('Welcome adventureist,lets first start my giving your Hero a name? ')
-    console.log('')
-    console.log(`Welcome ${hero.name}.`);
-    console.log('')
-    const firstStep = readline.keyIn(`To walk forward type "walk" Give it a shot now. `, {limit: `w`})
-    console.log('')
+    
+    hero.name = readline.question('Welcome adventureist,lets first start my giving your Hero a name? \n')
+    
+    console.log(`Welcome ${hero.name}.\n`);
+   
+    const firstStep = readline.keyIn(`To walk forward, type "w" \nTo view ${hero.name}'s stats and inventory, type "p" \nTo quit the game at any point, type "q" \nGive it a shot now. \n`, {limit: `wpq`})
 
     if (firstStep === "w") {
-        console.log(`Good job! ${hero.name} swiftly took a few steps forward.`)
-        console.log('')
+        console.log(`Good job! ${hero.name} swiftly took a few steps forward. \n`)
+    }
+    
+    if (firstStep === "p") {
+        console.log(hero)
     }
 
-    let move = readline.keyIn(`Now that we've got that covered, lets begin. Start making your way to the tresure trove. `, {limit: 'wq'})
-    console.log('')
+    if (firstStep === "q") {
+        quit()
+        return false
+    }
 
-   
+    let move = readline.keyIn(`Now that we've got that covered, lets begin. \nStart making your way to the tresure trove. \n`, {limit: 'wpq'})
 
-    while (hero.hp > 0) {
+    while ((hero.hp > 0) && (gameOn = true)) {
         resetEnemy()
-        readline.keyIn('make a move.', {limit: 'wq'})
-        console.log('')
-        var randomNumber = Math.floor(Math.random() * 5) 
+        move = readline.keyIn('make a move. \n', {limit: 'wpq'})
 
-        if ((move === "w") && (randomNumber >= 3)){
+            if (move === "w") {
+                console.log(`Good job! ${hero.name} swiftly took a few steps forward. \n`)
+            }
+    
+            if (move === "p") {
+                console.log(hero)
+            }
+        
+            if (move === "q") {
+                quit()
+                return false
+            }
+            
+        var ambushProbability = Math.floor(Math.random() * 5) 
+
+        if ((move === "w") && (ambushProbability >= 3)){
             chooseEnemy()
-            console.log(`A ${enemy.name} has apeared in your path!`)
-            console.log('')
             enemyFight()
         }  
 
-            if ((randomNumber < 3) && (hero.hp > 0)) {
-                console.log(`${hero.name} walked down the path a bit more. `)
-                console.log('')
-                randomNumber
-            }
+        if ((move === "w") && (ambushProbability < 3) && (hero.hp > 0)) {
+            console.log(`${hero.name} walked down the path a bit more. \n`)
+            ambushProbability
+        }
           
     }
 }
