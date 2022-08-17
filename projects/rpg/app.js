@@ -3,7 +3,7 @@ const readline = require('readline-sync')
 let hero = {
     name: `hero`,
     hp: 100,
-    defense: 2,
+    defense: 5,
     evasion: 3,
     exp: 0,
     inventory: [`potion`,`potion`],
@@ -13,25 +13,31 @@ let enemy1 = {
     name: 'enemy1',
     hp: 25,
     defense: 2,
-    evasion: 3,
-    exp: 50
+    evasion: 1,
+    exp: 25
 }
 
 let enemy2 = {
     name: 'enemy2',
     hp: 50,
-    defense: 2,
-    evasion: 3,
-    exp: 75
+    defense: 5,
+    evasion: 2,
+    exp: 50
 }
 let enemy3 = {
     name: 'enemy3',
-    hp: 100,
-    defense: 2,
+    hp: 75,
+    defense: 7,
     evasion: 3,
-    exp: 100
+    exp: 75
 }
 
+let total = {
+    damageDone: 0,
+    damageAccrued: 0,
+    expEarned: 0,
+    steps: 0
+}
 
 var heroIsAlive = true
 var enemyIsAlive = true
@@ -39,6 +45,7 @@ var gameOn = true
 
 function quit() {
     console.log(`Goodbye ${hero.name}, thanks for playing \n`)
+    console.log(total)
 }
 
 function chooseEnemy() {
@@ -54,11 +61,13 @@ function chooseEnemy() {
         enemy = enemy3
     }
     
-    console.log(`A ${enemy.name} has apeared in your path! \n`)
+    console.log(` -- A ${enemy.name} has apeared in your path! \n`)
 }
 
 function enemyAttack() {
     let enemyDamage = (Math.floor(Math.random() * 20))
+    let totalDA = total.damageAccrued + enemyDamage
+    total.damageAccrued = totalDA
     console.log(` -- ${enemy.name} attacked`)
     console.log(`${hero.name} took ${enemyDamage} of damage`)
     let newHp = hero.hp - enemyDamage
@@ -67,7 +76,8 @@ function enemyAttack() {
     if (hero.hp <= 0) {
         console.log('')
         console.log("Youre DEAD BUDDY!!! \n")
-        return heroIsAlive === false
+        quit()
+        return false
     }
 
     if (hero.hp > 0) {
@@ -76,20 +86,22 @@ function enemyAttack() {
 }
 
 function heroAtack() {
-        let heroDamage = (Math.floor(Math.random() * 20))
-        console.log(`${enemy.name} took ${heroDamage} of damage`)
-        let newHp = enemy.hp - heroDamage
-        enemy.hp = newHp
+    let heroDamage = (Math.floor(Math.random() * 20))
+    let totalDD = total.damageDone + heroDamage
+    total.damageDone = totalDD
+    console.log(`${enemy.name} took ${heroDamage} of damage`)
+    let newHp = enemy.hp - heroDamage
+    enemy.hp = newHp
 
-        if (enemy.hp >= 0) {
-            console.log(`enemy is down to ${enemy.hp}HP \n`)
-            
-        }
-        else if (enemy.hp < 0) {
-            console.log(`${hero.name} vanquished the enemy \n`)
-            enemy.hp = 0
-            }
+    if (enemy.hp >= 0) {
+        console.log(`enemy is down to ${enemy.hp}HP \n`)
+        
     }
+    else if (enemy.hp < 0) {
+        console.log(`${hero.name} vanquished the enemy \n`)
+        enemy.hp = 0
+    }
+}
 
 
 function potion() {
@@ -121,9 +133,13 @@ function run() {
 }
 
 function expGen(){
-    let newExp = Math.floor(Math.random() * 100)
+    let bonusExp = Math.floor(Math.random() * 50)
+    let newexp = hero.exp + bonusExp
+    hero.exp = newexp
+    let newExp = enemy.exp + hero.exp
     hero.exp = newExp
-    console.log(`${hero.name} gained ${hero.exp}exp \n`)
+    total.expEarned = hero.exp + newExp
+    console.log(`${hero.name} gained ${enemy.exp + newexp}exp \n`)
 }
 
 function resetEnemy() {
@@ -143,7 +159,7 @@ function resetEnemy() {
 function enemyFight() {
     while ((enemy.hp >= 0) && (hero.hp > 0)) {
         console.log("What would you like to do? ")
-        let move = readline.keyIn("Type: attack, potion, or run ", {limit: "aprq"})
+        let move = readline.keyIn(`Type: "a" to attack, "p" to use potion and "q" to quit.`, {limit: "aprq"})
         console.log("")
         
             if (move === "a") {
@@ -155,12 +171,14 @@ function enemyFight() {
                 if (hero.inventory.includes(`potion`)) {
                 console.log(` -- ${hero.name} used a potion. `)
                 potion()
-            }
-            else {
-                console.log(` -- ${hero.name}  is out of potions \n`)
-            }
+                }
+
+                else {
+                    console.log(` -- ${hero.name}  is out of potions \n`)
+                }
         
             }
+
             if ((move === "r") && (enemyIsAlive === true)) {
                 if (run()) {
                     break;
@@ -190,6 +208,8 @@ while (hero.hp > 0) {
 
     if (firstStep === "w") {
         console.log(`Good job! ${hero.name} swiftly took a few steps forward. \n`)
+        let totalS = total.steps + 3
+        total.steps = totalS
     }
     
     if (firstStep === "p") {
@@ -209,6 +229,8 @@ while (hero.hp > 0) {
 
             if (move === "w") {
                 console.log(`Good job! ${hero.name} swiftly took a few steps forward. \n`)
+                let totalS = total.steps + 3
+                total.steps = totalS
             }
     
             if (move === "p") {
