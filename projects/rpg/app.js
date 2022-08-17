@@ -134,12 +134,9 @@ function run() {
 
 function expGen(){
     let bonusExp = Math.floor(Math.random() * 50)
-    let newexp = hero.exp + bonusExp
-    hero.exp = newexp
-    let newExp = enemy.exp + hero.exp
-    hero.exp = newExp
-    total.expEarned = hero.exp + newExp
-    console.log(`${hero.name} gained ${enemy.exp + newexp}exp \n`)
+    let newexp = hero.exp + bonusExp + enemy.exp
+    total.expEarned = hero.exp = newexp
+    console.log(`${hero.name} gained ${enemy.exp + bonusExp}exp \n`)
 }
 
 function resetEnemy() {
