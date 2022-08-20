@@ -29,7 +29,7 @@ var enemy3 = {
 
 readline.question(`time to fight`)
 function chooseEnemy() {
-    var enemy1Probability = Math.floor(Math.random() * 30)
+    var enemy1Probability = Math.ceil(Math.random() * 30)
 
     if ((enemy1Probability > 10) && (enemy1Probability < 18)) {
         enemy = enemy1
