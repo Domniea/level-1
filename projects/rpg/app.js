@@ -9,7 +9,7 @@ let hero = {
     evasion: 3,
     chance: 2,
     exp: 0,
-    inventory: [`potion`,`potion`, 'bomb'],
+    inventory: [`potion`,`potion`],
 }
 
 let enemy1 = {
@@ -31,11 +31,11 @@ let enemy2 = {
 }
 let enemy3 = {
     name: 'Boss',
-    hp: 150,
-    attack: 6,
-    defense: 3,
+    hp: 250,
+    attack: 7,
+    defense: 4,
     evasion: 5,
-    exp: 150
+    exp: 200
 }
 
 let total = {
@@ -46,7 +46,6 @@ let total = {
 }
 
 var heroIsAlive = true
-var enemyIsAlive = true
 var gameOn = true
 
 function quit() {
@@ -55,20 +54,33 @@ function quit() {
 }
 
 function heroAtack() {
-    let heroDamage = (Math.ceil(Math.random() * 20) + (hero.attack - enemy.defense))
-    
-    if (critHit()) {
-        heroDamage = 30
-    }
-   
-    total.damageDone += heroDamage
-    console.log(`${enemy.name} took ${heroDamage} of damage`)
-    enemy.hp -= heroDamage
+    let hitChance = (Math.ceil(Math.random() * 40) - enemy.evasion)
+    if (hitChance > 5) {
+        
+        if (critHit()) {
+                heroDamage = 30
+                total.damageDone += heroDamage
+                console.log(`${enemy.name} took ${heroDamage} of damage`)
+                enemy.hp -= heroDamage
+        }
 
-    if (enemy.hp >= 0) {
+        else {
+            let heroDamage = (Math.ceil(Math.random() * 20) + (hero.attack - enemy.defense))
+                    total.damageDone += heroDamage
+                    console.log(`${enemy.name} took ${heroDamage} of damage`)
+                    enemy.hp -= heroDamage
+        }
+    }
+
+    else {
+        console.log(`${hero.name} tried to attack, but missed \n`)
+    }
+  
+    if (enemy.hp >= 0 && hitChance > 5) {
         console.log(`enemy is down to ${enemy.hp}HP \n`)
         
     }
+
     else if (enemy.hp < 0) {
         console.log(`${hero.name} vanquished the enemy \n`)
         enemy.hp = 0
@@ -92,20 +104,29 @@ function chooseEnemy() {
 }
 
 function enemyAttack() {
-    let hitChance = (Math.ceil(Math.random() * 30) - hero.evasion)
-    console.log(hitChance)
-    if (hitChance > 10) {
-        let enemyDamage = (Math.ceil(Math.random() * 20) + (enemy.attack - hero.defense))
-            total.damageAccrued += enemyDamage
-            console.log(` -- ${enemy.name} attacked`)
-            console.log(`${hero.name} took ${enemyDamage} of damage`)
-            hero.hp -= enemyDamage
-    }
-    else {
-        console.log(hitChance)
-        console.log(`${enemy.name} tried to attack, but missed`)
-    }
-   
+    let hitChance = (Math.ceil(Math.random() * 40) - hero.evasion)
+        if (hitChance > 5) {
+
+            if (critHit()) {
+                    enemyDamage = 30
+                    total.damageAccrued += enemyDamage
+                    console.log(`${hero.name} took ${enemyDamage} of damage`)
+                    
+                    hero.hp -= enemyDamage
+             }
+
+            else {
+                    let enemyDamage = (Math.ceil(Math.random() * 20) + (enemy.attack - hero.defense))
+                        total.damageAccrued += enemyDamage
+                        console.log(`${hero.name} took ${enemyDamage} of damage`)
+                        hero.hp -= enemyDamage
+                }
+        }
+
+        else {
+            console.log(`${enemy.name} tried to attack, but missed \n`)
+        }
+    
     if (hero.hp <= 0) {
         console.log('')
         console.log("Youre DEAD BUDDY!!! \n")
@@ -113,13 +134,30 @@ function enemyAttack() {
         return false
     }
 
-    if (hero.hp > 0) {
+    if (hero.hp > 0 && hitChance > 5) {
     console.log(`${hero.name} is down to ${hero.hp}HP \n`)
     }
 }
 
+// function specialAttack() {
+//     heroDamage = 75
+//     total.damageDone += heroDamage
+        
+//     if (enemy.hp > 0) {
+//         console.log(`${enemy.name} took ${heroDamage} of damage`)
+//         enemy.hp -= heroDamage
+//         console.log(`enemy is down to ${enemy.hp}HP \n`)
+//     }
+
+//     else if (enemy.hp <= 0) {
+//         console.log(`${hero.name} vanquished the enemy \n`)
+//     }
+// }
+
+
 function critHit() {
     let critChance = (Math.ceil(Math.random() * 20)) + hero.chance
+    
     if (critChance >= 20) {
         console.log('CRITICAL HIT')
        return true
@@ -131,18 +169,46 @@ function potion() {
     let newHP = hero.hp + 75
     hero.hp = newHP
 
-    if (hero.hp >= 100){
+    if ((hero.hp >= 100) && (hero.level === 1)) {
         hero.hp = 100
+    }
+    
+    else if ((hero.hp >= 200) && (hero.level === 2)) {
+        hero.hp = 200
+    }
+        
+    else if ((hero.hp >= 300) && (hero.level === 3)){
+        hero.hp = 300
     }
 
     console.log(`${hero.name} now has ${hero.hp}HP \n`)
     hero.inventory.pop(`potion`)
-     
+}
+
+function hiPotion() {
+    console.log("You drank a hi-potion and regained 150 HP.")
+    let newHP = hero.hp + 200
+    hero.hp = newHP
+
+    if ((hero.hp >= 100) && (hero.level === 1)) {
+        hero.hp = 100
+    }
+    
+    if ((hero.hp >= 200) && (hero.level === 2)) {
+        hero.hp = 200
+    }
+        
+    if ((hero.hp >= 300) && (hero.level === 3)){
+        hero.hp = 300
+    }
+
+    console.log(`${hero.name} now has ${hero.hp}HP \n`)
+    hero.inventory.pop(`hi-Potion`)
 }
 
 function bomb() {
     if (hero.inventory.includes('bomb')) {
-         let heroDamage = (Math.ceil(Math.random() * 20) + (hero.attack - enemy.defense)) * 3
+        let heroDamage = (Math.ceil(Math.random() * 20) + (hero.attack - enemy.defense)) * 3
         total.damageDone += heroDamage
 
         console.log(`${enemy.name} took ${heroDamage} of damage`)
@@ -167,9 +233,9 @@ function bomb() {
 }
 
 function run() {
-    let runProbability = (Math.ceil(Math.random() * 20)) + hero.evasion
+    let runProbability = (Math.ceil(Math.random() * 10)) + hero.evasion
 
-    if (runProbability >= 10) {
+    if (runProbability >= 5) {
         console.log(`${hero.name} escaped safeley. `)
         console.log("")
         return true;
@@ -183,29 +249,30 @@ function run() {
 
 function itemGen() {
     let randomNumber = Math.ceil(Math.random() * 10)
-    if ((randomNumber > 5) && (randomNumber <= 7)) {
+    
+    if ((randomNumber >= 1) && (randomNumber <= 3)) {
         hero.inventory.push('potion')
         console.log(`${enemy.name} dropped a potion! \n`)
     }
 
-    if ((randomNumber > 7) && (randomNumber <= 9)) {
-        hero.inventory.push('bomb')
-        console.log(`${enemy.name} dropped a bomb! \n`)
+    if ((randomNumber > 3) && (randomNumber <= 5)) {
+        hero.inventory.push('hi-potion')
+        console.log(`${enemy.name} dropped a hi-potion! \n`)
     }
 
     if (randomNumber === 10) {
-        hero.inventory.push('potion', 'bomb')
-        console.log(`${enemy.name} dropped a potion AND a bomb! \n`)
+        hero.inventory.push('bomb')
+        console.log(`${enemy.name} dropped a bomb! \n`)
     }
 }
 
-function expGen(){
+function expGen() {
     let bonusExp = Math.ceil(Math.random() * 50)
     let newexp = hero.exp + bonusExp + enemy.exp
     total.expEarned = hero.exp = newexp
     console.log(`${hero.name} gained ${enemy.exp + bonusExp}exp \n`)
 
-        if ( hero.exp >= 500 && hero.level === 1 ) {
+    if ( hero.exp >= 300 && hero.level === 1 ) {
             let levelUpRefresh = 200 - hero.hp
             hero.hp += levelUpRefresh
             console.log(`${hero.name} Leveled Up! \n${hero.name} now has 200HP`)
@@ -214,7 +281,19 @@ function expGen(){
             hero.defense += 2
             hero.evasion += 2
             hero.chance += 3
+    
         }
+
+    if ( hero.exp >= 500 && hero.level === 2 ) {
+            let levelUpRefresh = 300 - hero.hp
+            hero.hp += levelUpRefresh
+            console.log(`${hero.name} Leveled Up! \n${hero.name} now has 300HP`)
+            hero.level = 3
+            hero.attack += 3
+            hero.defense += 3
+            hero.evasion += 3
+            hero.chance += 4
+    }
 }
 
 function resetEnemy() {
@@ -234,39 +313,63 @@ function resetEnemy() {
 function enemyFight() {
     while ((enemy.hp >= 0) && (hero.hp > 0)) {
         console.log("What would you like to do? ")
-        let move = readline.keyIn(`Type: "a" to attack, "p" to use potion and "r" to run, and "b" to throw a bomb.`, {limit: "aprb"})
-        console.log("")
-        
+        let move = readline.keyIn(`Type: "a" to attack, "i" to open/use an item from your inventory, "r" to run \n`, {limit: "air"})
+        // if (total.damageAccrued & 200 === 0) {
+        //     console.log(`${hero.name}'s Special Attack is ready! \n`)
+        // }
+
             if (move === "a") {
                 console.log(`--  ${hero.name} atacked. `)
                 heroAtack()
             }
 
-            if (move === "b") {
-                console.log(`--  ${hero.name} threw a Bomb. `)
-                bomb()
+            // if (move === 's') {
+            //     specialAttack()
+            // }
+            
+            if ((move === 'i') && (enemy.hp > 0)) {
+                let move = readline.keyIn(`Type: the first letter of whatever item you would like to use. \n${hero.inventory} \n`, {limit: 'phb'})
+                    
+                    if (move === 'p') {
+                        if (hero.inventory.includes(`potion`)) {
+                            console.log(` -- ${hero.name} used a potion. `)
+                            potion()
+                        }
+
+                        else {
+                            console.log(` -- ${hero.name}  is out of potions`)
+                        }
+                    }
+
+                    if (move === 'h') {
+                        if (hero.inventory.includes(`hi-potion`)) {
+                            console.log(` -- ${hero.name} used a hi-potion. `)
+                            hiPotion()
+                        }
+                        
+                        else {
+                            console.log(` -- ${hero.name}  is out of hi- potions`)
+                        }
+                    }
+
+                    if (move === 'b') {
+                        console.log(`--  ${hero.name} threw a Bomb. `)
+                        bomb()
+                    }
             }
 
-            if ((move === "p") && (enemy.hp > 0)){
-                if (hero.inventory.includes(`potion`)) {
-                console.log(` -- ${hero.name} used a potion. `)
-                potion()
-                }
-                else {
-                    console.log(` -- ${hero.name}  is out of potions \n`)
-                }
-        
-            }
-
-            if ((move === "r") && (enemyIsAlive === true)) {
+            if ((move === 'r') && (enemy.hp >= 0)) {
+               
                 if (run()) {
                     break;
                 }
             }
 
-        if ((enemy.hp  >0) && (hero.hp > 0)) {
+        if ((enemy.hp > 0) && (hero.hp > 0)) {
+            console.log(` -- ${enemy.name} attacked.`)
             enemyAttack()
         }
+
         else {
             expGen()
             itemGen()
@@ -280,47 +383,73 @@ function enemyFight() {
 // -------------------------------------------------- GAME ---------------------------------------------------//
 while (hero.hp > 0) {
     
-    hero.name = readline.question('Welcome adventureist,lets first start my giving your Hero a name? \n')
+    hero.name = readline.question('Welcome,lets first start my giving your Hero a name? \n')
     
-    console.log(`Welcome ${hero.name}.\n`);
+    console.log(`Welcome ${hero.name}.\n`)
    
-    const firstStep = readline.keyIn(`To walk forward, type "w" \nTo view ${hero.name}'s stats and inventory, type "p" \nTo quit the game at any point, type "q" \nGive it a shot now. \n`, {limit: `wpq`})
+    const firstStep = readline.keyIn(`To walk forward, type "w" \n\nTo view ${hero.name}'s stats and inventory, type "p" \n\nTo quit the game at any point, type "q" \n\nGive it a shot now. \n`, {limit: `wpq`})
 
-    if (firstStep === "w") {
-        console.log(`Good job! ${hero.name} swiftly took a few steps forward. \n`)
-        let totalS = total.steps + 3
-        total.steps = totalS
-    }
+        if (firstStep === "w") {
+            console.log(`Good job! ${hero.name} swiftly took a few steps forward. \n`)
+        total.steps += 3
+        }
+        
+        if (firstStep === "p") {
+            console.log(hero)
+        }
+
+        if (firstStep === "q") {
+            quit()
+        }
+
+    let move = readline.keyIn(`Now that we've got that covered, lets begin. \n \nStart making your way to the tresure trove. \n`, {limit: 'wpq'})
     
-    if (firstStep === "p") {
-        console.log(hero)
-    }
+        if (move === "w") {
+            console.log(`Good job! ${hero.name} swiftly took a few steps forward. \n`)
+            total.steps += 3
+        }
 
-    if (firstStep === "q") {
-        quit()
-        return false
-    }
+        if (move === "p") {
+            console.log(hero)
+        }
 
-    let move = readline.keyIn(`Now that we've got that covered, lets begin. \nStart making your way to the tresure trove. \n`, {limit: 'wpq'})
-
+        if (move === "q") {
+            quit()
+        }
+    
     while ((hero.hp > 0) && (gameOn = true)) {
         resetEnemy()
-        move = readline.keyIn('make a move. \n', {limit: 'wpq'})
+        move = readline.keyIn('Make a move. \n', {limit: 'wpiq'})
 
-            if (move === "w") {
-                console.log(`Good job! ${hero.name} swiftly took a few steps forward. \n`)
-                let totalS = total.steps + 3
-                total.steps = totalS
-            }
-    
-            if (move === "p") {
-                console.log(hero)
-            }
+        if (move === "w") {
+            console.log(`Good job! ${hero.name} swiftly took a few steps forward. \n`)
+            total.steps += 3
+        }
+
+        if (move === "p") {
+            console.log(hero)
+        }
         
-            if (move === "q") {
-                quit()
-                return false
+        if (move === 'i') {
+            let move = readline.keyIn(`Type: the first letter of whatever item you would like to use. \n${hero.inventory} \n`)
+            
+            if ((move === "p")){
+                
+                if (hero.inventory.includes(`potion`)) {
+                console.log(` -- ${hero.name} used a potion. \n`)
+                potion()
+                }
+
+                else {
+                    console.log(` -- ${hero.name}  is out of potions.`)
+                }
             }
+        }
+
+        if (move === "q") {
+            quit()
+            return false
+        }
             
         var ambushProbability = Math.ceil(Math.random() * 5) 
 
