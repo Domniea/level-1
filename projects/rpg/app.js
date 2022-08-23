@@ -236,7 +236,7 @@ function run() {
     let runProbability = (Math.ceil(Math.random() * 10)) + hero.evasion
 
     if (runProbability >= 5) {
-        console.log(`${hero.name} escaped safeley. `)
+        console.log(`${hero.name} escaped safely. `)
         console.log("")
         return true;
     }
